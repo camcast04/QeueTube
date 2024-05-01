@@ -8,7 +8,9 @@
       save
     </button>
   </form>
-  <a href="{%url 'delete_hall' playlist.id %}" class="btn btn-danger">Delete</a>
+  <a href="{%url 'delete_playlist' playlist.id %}" class="btn btn-danger"
+    >Delete</a
+  >
 </div>
 
 {% endblock %}
