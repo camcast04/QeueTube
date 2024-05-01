@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
+from .models import Playlist, Video
+from django.views.generic import CreateView
 # Create your views here.
 def home(request):
   return render(request, 'home.html')
@@ -21,3 +23,15 @@ class SignUp(generic.CreateView):
   form_class = UserCreationForm
   success_url = reverse_lazy('home')
   template_name = 'registration/signup.html'
+  
+class CreatePlaylist(generic.CreateView):
+  model = Playlist
+  fields = ['title']
+  template_name = 'playlist/create_playlist.html'
+  success_url = reverse_lazy('home')
+  
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    super(CreatePlaylist, self).form_valid(form)
+    return redirect('home')
+    
