@@ -58,7 +58,9 @@ class UpdatePlaylist(generic.UpdateView):
   model = Playlist
   template_name = 'playlist/update_playlist.html'
   fields = ['title']
+  success_url = reverse_lazy('dashboard')
   
 class DeletePlaylist(generic.DeleteView):
   model = Playlist
   template_name = 'playlist/delete_playlist.html'
+  success_url = reverse_lazy('dashboard')

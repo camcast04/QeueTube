@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container">
+  <h1>Edit a Playlist</h1>
+  <form action="" method="POST">
+    {% csrf_token %} {{ form.as_p }}
+    <button type="submit" value="Update Playlist" class="btn btn-primary">
+      save
+    </button>
+  </form>
+  <a href="{%url 'delete_hall' playlist.id %}" class="btn btn-danger">Delete</a>
+</div>
+
+{% endblock %}

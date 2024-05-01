@@ -1,9 +1,12 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="container">
+  <h1>Create a Playlist</h1>
   <form action="" method="POST">
     {% csrf_token %} {{ form.as_p }}
-    <input type="submit" value="Create Playlist" />
+    <button type="submit" value="Create Playlist" class="btn btn-primary">
+      Create Playlist
+    </button>
   </form>
 </div>
 
