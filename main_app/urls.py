@@ -1,3 +1,5 @@
+# queuetube/main_app/urls.py
+
 from django.urls import path
 from . import views # . means from current file (main_app)
 from django.conf.urls.static import static 

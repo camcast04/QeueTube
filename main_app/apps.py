@@ -1,3 +1,5 @@
+# queuetube/main_app/app.py
+
 from django.apps import AppConfig
 
 

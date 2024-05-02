@@ -1,3 +1,5 @@
+# queuetube/queuetube/settings.py
+
 """
 Django settings for queuetube project.
 

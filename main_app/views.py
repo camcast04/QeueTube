@@ -1,3 +1,5 @@
+# queuetube/main_app/views.py
+
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
@@ -21,23 +23,17 @@ class AboutView(generic.TemplateView):
     template_name = 'about.html'
 
 def add_video(request, pk):
-  form = VideoForm()
-  search_form = SearchForm()
-  
-  
-  if request.method == 'POST':
-    #create 
-    filled_form = VideoForm(request.POST)
-    if filled_form.is_valid():
-      video = Video()
-      video.url = filled_form.cleaned_data['url']
-      video.title = filled_form.cleaned_data['title']
-      video.youtube_id = filled_form.cleaned_data['youtube_id']
-      video.playlist = Playlist.objects.get(pk=pk)
-      video.save()
-      
-  
-  return render(request, 'video/add_video.html', {'form':form, 'search_form':search_form})
+    form = VideoForm()
+    search_form = SearchForm()
+
+    if request.method == 'POST':
+        filled_form = VideoForm(request.POST)
+        if filled_form.is_valid():
+            video = filled_form.save(commit=False)
+            video.playlist = Playlist.objects.get(pk=pk)
+            video.save()
+
+    return render(request, 'video/add_video.html', {'form': form, 'search_form': search_form})
 
 # Playlist Views
 class PlaylistsIndex(generic.ListView):
