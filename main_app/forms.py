@@ -7,5 +7,5 @@ class VideoForm(forms.ModelForm):
         fields = ['title', 'url', 'youtube_id']
         labels = {'youtube_id':'YouTube ID' }
         
-class SearchForm(form.Form):
+class SearchForm(forms.Form):
     search_term = forms.CharField(max_length=255, label='Search for Video:')
