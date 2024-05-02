@@ -16,5 +16,10 @@ urlpatterns = [
   path('playlists/<int:pk>', views.DetailPlaylist.as_view(), name='detail_playlist'),
   path('playlists/<int:pk>/update', views.UpdatePlaylist.as_view(), name='update_playlist'),
   path('playlists/<int:pk>/delete', views.DeletePlaylist.as_view(), name='delete_playlist'),
+  
+  #Video killed the radio star 
+  path('video/<int:pk>/addvideo', views.add_video, name='delete_playlist'),
+  
+  
 ]
 
