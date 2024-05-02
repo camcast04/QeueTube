@@ -5,6 +5,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from .models import Playlist, Video
 from .forms import VideoForm, SearchForm
+import environ
+env = environ.Env()
+
+YOUTUBE_API_KEY = env('SECRET_KEY')
 
 # Basic Views
 class HomeView(generic.TemplateView):
