@@ -7,6 +7,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from .models import Playlist, Video
 from .forms import VideoForm, SearchForm
+from django.http import Http404
+from django.forms.utils import ErrorList
+import requests
+import urllib
 import environ
 env = environ.Env()
 
@@ -26,15 +30,31 @@ def dashboard(request):
 def add_video(request, pk):
     form = VideoForm()
     search_form = SearchForm()
+    playlist = Playlist.objects.get(pk=pk)
+    if not playlist.user == request.user:
+        raise Http404
 
     if request.method == 'POST':
-        filled_form = VideoForm(request.POST)
-        if filled_form.is_valid():
-            video = filled_form.save(commit=False)
-            video.playlist = Playlist.objects.get(pk=pk)
-            video.save()
+        form = VideoForm(request.POST)
+        if form.is_valid():
+            video = Video()
+            video.playlist = playlist
+            video.url = form.cleaned_data['url']
+            parsed_url = urllib.parse.urlparse(video.url)
+            video_id = urllib.parse.parse_qs(parsed_url.query).get('v')
+            if video_id:
+                video.youtube_id = video_id[0]
+                response = requests.get(f'https://youtube.googleapis.com/youtube/v3/videos?part=snippet&id={video_id[0]}&key={YOUTUBE_API_KEY}')
+                json = response.json()
+                title = json['items'][0]['snippet']['title']                
+                video.title = title
+                video.save()
+                return redirect('playlist_detail', pk)
+            else:
+                errors = form._errors.setdefault('url', ErrorList())
+                errors.append('Needs to be a Youtube URL')
 
-    return render(request, 'video/add_video.html', {'form': form, 'search_form': search_form})
+    return render(request, 'video/add_video.html', {'form': form, 'search_form': search_form, 'playlist':playlist})
 
 # Playlist Views
 class PlaylistsIndex(generic.ListView):
