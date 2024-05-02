@@ -4,6 +4,7 @@ from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from .models import Playlist
+from .forms import VideoForm
 
 # Basic Views
 class HomeView(generic.TemplateView):
@@ -14,6 +15,10 @@ class DashboardView(generic.TemplateView):
 
 class AboutView(generic.TemplateView):
     template_name = 'about.html'
+
+def add_video(request, pk):
+  form = VideoForm()
+  return render(request, 'video/add_video.html', {'form':form})
 
 # Playlist Views
 class PlaylistsIndex(generic.ListView):
@@ -35,6 +40,7 @@ class SignUp(generic.CreateView):
       
 # Oh CRUD
 
+#Create
 class CreatePlaylist(generic.CreateView):
     model = Playlist
     fields = ['title']
@@ -45,16 +51,19 @@ class CreatePlaylist(generic.CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+#Read
 class DetailPlaylist(generic.DetailView):
     model = Playlist
     template_name = 'playlist/detail_playlist.html'
 
+#Update
 class UpdatePlaylist(generic.UpdateView):
     model = Playlist
     fields = ['title']
     template_name = 'playlist/update_playlist.html'
     success_url = reverse_lazy('dashboard')
 
+#Delete
 class DeletePlaylist(generic.DeleteView):
     model = Playlist
     template_name = 'playlist/delete_playlist.html'
