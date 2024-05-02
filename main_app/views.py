@@ -13,14 +13,15 @@ env = environ.Env()
 YOUTUBE_API_KEY = env('SECRET_KEY')
 
 # Basic Views
-class HomeView(generic.TemplateView):
-    template_name = 'home.html'
+def home(request):
+    return render(request, 'home.html')
 
-class DashboardView(generic.TemplateView):
-    template_name = 'dashboard.html'
+def about(request):
+    return render(request, 'about.html')
 
-class AboutView(generic.TemplateView):
-    template_name = 'about.html'
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
 
 def add_video(request, pk):
     form = VideoForm()

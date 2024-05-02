@@ -11,7 +11,7 @@ urlpatterns = [
   path('', views.home, name='home'), #making home controller -> now need to create the homes view in views.py
   path('about/', views.about, name='about'),
   path('dashboard/', views.dashboard, name='dashboard'),
-  path('playlists/', views.playlists_index, name='index'),
+
   
   #playlist specific:
   path('playlists/create', views.CreatePlaylist.as_view(), name='create_playlist'),
