@@ -32,6 +32,8 @@ class SignUp(generic.CreateView):
         user = authenticate(username=username, password=password)
         login(self.request, user)
         return redirect(self.get_success_url())
+      
+# Oh CRUD
 
 class CreatePlaylist(generic.CreateView):
     model = Playlist
