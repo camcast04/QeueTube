@@ -3,8 +3,8 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
-from .models import Playlist
-from .forms import VideoForm
+from .models import Playlist, Video
+from .forms import VideoForm, SearchForm
 
 # Basic Views
 class HomeView(generic.TemplateView):
@@ -18,7 +18,22 @@ class AboutView(generic.TemplateView):
 
 def add_video(request, pk):
   form = VideoForm()
-  return render(request, 'video/add_video.html', {'form':form})
+  search_form = SearchForm()
+  
+  
+  if request.method == 'POST':
+    #create 
+    filled_form = VideoForm(request.POST)
+    if filled_form.is_valid():
+      video = Video()
+      video.url = filled_form.cleaned_data['url']
+      video.title = filled_form.cleaned_data['title']
+      video.youtube_id = filled_form.cleaned_data['youtube_id']
+      video.playlist = Playlist.objects.get(pk=pk)
+      video.save()
+      
+  
+  return render(request, 'video/add_video.html', {'form':form, 'search_form':search_form})
 
 # Playlist Views
 class PlaylistsIndex(generic.ListView):

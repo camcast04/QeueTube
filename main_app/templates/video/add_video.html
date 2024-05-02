@@ -3,11 +3,31 @@
 <div class="container">
   <h1>Add a Video</h1>
   <form action="" method="POST">
-    {% csrf_token %} {{ form.as_p }}
+    {% csrf_token %}
+    <!--loading styling-->
+    {% load widget_tweaks%}
+
+    <!--form for loop -->
+    {% for field in form %}
+    <div class="form-group {% if field.error %}alert alert-danger{% endif %}">
+      {{ field.errors }} {{ field.label }}
+      <!--widget tweaks-->
+      {% render_field field class="form-control" %}
+    </div>
+    {% endfor %}
+    <!-- <br />
+    {{ field.errors }} {{ field.label_tag }} {{ field }}
+    <br />
+    {% endfor %} -->
+    <!-- <table>
+      {{ form.as_table }}
+    </table> -->
     <button type="submit" value="Create Playlist" class="btn btn-primary">
       Add Video
     </button>
   </form>
+  <h2>OR</h2>
+  <form action="">{{ search_form }}</form>
 </div>
 
 {% endblock %}
