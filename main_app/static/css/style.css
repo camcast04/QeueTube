@@ -3,9 +3,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 body {
-  background-color: #f4f4f4;
+  background-color: #e0e3eb;
   font-size: 17px;
-  color: #343333;
+  color: #3b386d;
   font-weight: medium;
 }
 
@@ -17,7 +17,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 30px;
 }
 
 .playlist-card,
@@ -69,17 +69,17 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  flex-wrap: wrap; /* Allows items to wrap in smaller screens */
+  flex-wrap: wrap;
 }
 
 .custom-text {
-  flex: 1 1 300px; /* Flex grow, flex shrink, flex basis */
-  margin-right: 20px; /* Adds spacing between text and image */
+  flex: 1 1 300px;
+  margin-right: 20px;
 }
 
 .custom-image-container {
-  flex: 1 1 300px; /* Flex grow, flex shrink, flex basis */
-  max-width: 40%; /* Maximum width of the image container */
+  flex: 1 1 300px;
+  max-width: 40%;
 }
 
 .main-content-container {
@@ -88,20 +88,20 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin: auto;
-  max-width: 80%; /* Limits the width and centers the container */
+  max-width: 80%;
 }
 
 .custom-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px; /* Adds space between the text and the image */
+  gap: 20px;
 }
 
 .custom-text,
 .custom-image-container {
   flex: 1;
-  min-width: 0; /* Prevents flex items from growing beyond their content */
+  min-width: 0;
 }
 
 .custom-image {
@@ -117,18 +117,23 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin: auto;
-  max-width: 80%; /* Adjust this to match the width of the section above */
+  max-width: 80%;
 }
 .video-card {
-  height: 300px; /* Adjust height to fit your design */
-  overflow: hidden; /* Keeps the content within the bounds of the card */
+  height: 300px;
+  overflow: hidden;
 }
 
 .video-card iframe {
-  height: 100%; /* Makes the iframe fill the card vertically */
+  height: 100%;
 }
 
 .custom-playlist-container h1 {
-  font-size: 40x;
+  font-size: 60x;
+  text-align: left;
+}
+.small-title {
+  color: #3b386d;
+  font-size: 60x;
   text-align: left;
 }

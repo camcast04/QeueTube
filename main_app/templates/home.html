@@ -30,8 +30,12 @@
   <h1 class="text-center small-title">🔥 Popular Playlists</h1>
   {% for playlist in popular_playlists %}
   <div class="playlist-card">
-    <h2>
-      <a href="{% url 'detail_playlist' playlist.id %}">{{ playlist.title }}</a>
+    <h2 style="text-decoration: none">
+      <a
+        href="{% url 'detail_playlist' playlist.id %}"
+        style="text-decoration: none"
+        >{{ playlist.title }}</a
+      >
     </h2>
     <div class="row">
       {% for video in playlist.video_set.all %}
