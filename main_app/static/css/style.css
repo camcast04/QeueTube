@@ -52,10 +52,9 @@ body {
 }
 
 .small-title {
-  font-size: 1.25rem; /* 20px */
+  font-size: 1.25rem;
 }
 
-/* Image styling for better control */
 .custom-image {
   max-width: 100%;
   width: 80%;
@@ -63,7 +62,6 @@ body {
   border-radius: 10px;
 }
 
-/* Container adjustments for better layout */
 .custom-container {
   display: flex;
   justify-content: space-between;
@@ -119,6 +117,7 @@ body {
   margin: auto;
   max-width: 80%;
 }
+
 .video-card {
   height: 300px;
   overflow: hidden;
@@ -132,8 +131,44 @@ body {
   font-size: 60x;
   text-align: left;
 }
+
 .small-title {
   color: #3b386d;
   font-size: 60x;
   text-align: left;
+}
+
+.playlist-card a {
+  font-size: 1.5rem;
+  color: #4a90e2;
+  text-decoration: none;
+}
+
+.playlist-card a:hover {
+  text-decoration: underline;
+  color: #3b386d;
+}
+
+.playlist-card h2 > a:first-of-type {
+  font-size: 1.5rem;
+  color: #4a90e2;
+  text-decoration: none;
+}
+
+.playlist-card h2 > a:first-of-type:hover {
+  text-decoration: underline;
+  color: #3b386d;
+}
+
+.custom-btn-black {
+  background-color: #000;
+  color: #fff;
+  border-color: #000;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+}
+
+.custom-btn-black:hover {
+  background-color: #333;
+  border-color: #333;
 }
