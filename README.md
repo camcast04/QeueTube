@@ -1,6 +1,6 @@
 # QUEUETUBE
 
-A RESTful web-app that helps you find your next climb.
+A Webapp Using the Youtube API Where you can share plalists with friends!
 
 ![image of the home screen](https://i.imgur.com/7HIDqKv.png)
 ![image ](https://i.imgur.com/iaCi3Dc.png)
