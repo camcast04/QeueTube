@@ -14,13 +14,15 @@ urlpatterns = [
 
   
   #playlist specific:
-  path('playlists/create', views.CreatePlaylist.as_view(), name='create_playlist'),
-  path('playlists/<int:pk>', views.DetailPlaylist.as_view(), name='detail_playlist'),
-  path('playlists/<int:pk>/update', views.UpdatePlaylist.as_view(), name='update_playlist'),
-  path('playlists/<int:pk>/delete', views.DeletePlaylist.as_view(), name='delete_playlist'),
+  path('playlist/create', views.CreatePlaylist.as_view(), name='create_playlist'),
+  path('playlist/<int:pk>', views.DetailPlaylist.as_view(), name='detail_playlist'),
+  path('playlist/<int:pk>/update', views.UpdatePlaylist.as_view(), name='update_playlist'),
+  path('playlist/<int:pk>/delete', views.DeletePlaylist.as_view(), name='delete_playlist'),
   
   #Video killed the radio star 
-  path('video/<int:pk>/addvideo', views.add_video, name='delete_playlist'),
+  path('video/<int:pk>/addvideo', views.add_video, name='add_video'),
+  path('video/<int:pk>/delete', views.DeleteVideo.as_view(), name='delete_video'),
+  path('video/search', views.video_search, name='video_search'),
   
   
 ]

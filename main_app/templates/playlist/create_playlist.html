@@ -5,7 +5,19 @@
 <div class="container">
   <h1>Create a Playlist</h1>
   <form action="" method="POST">
-    {% csrf_token %} {{ form.as_p }}
+    {% csrf_token %}
+    <!--Loading widget tweaks-->
+    {% load widget_tweaks %}
+    <!--for loop-->
+    {% for field in form %}
+    <div class="form-group {% if field.errors %}alert alert-danger{% endif %}">
+      {{ field.errors }}
+      <!--FLB-->
+      {{ field.label_tag }}
+      <!--RF-->
+      {% render_field field class="form-control"%}
+    </div>
+    {% endfor %}
     <button type="submit" value="Create Playlist" class="btn btn-primary">
       Create Playlist
     </button>

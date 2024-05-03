@@ -29,7 +29,7 @@
       class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm"
     >
       <h5 class="my-0 mr-md-auto font-weight-normal">
-        <a href="{% url 'home' %}" class="text-dark">Playlists Videos</a>
+        <a href="{% url 'home' %}" class="text-dark">QueueTube</a>
       </h5>
       <nav class="my-2 my-md-0 mr-md-3">
         {% if user.is_authenticated %}
@@ -46,6 +46,7 @@
       {% endif %}
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
       integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

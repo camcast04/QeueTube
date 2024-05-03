@@ -1,3 +1,28 @@
 <!--queuetube/main_app/templates/home.html-->
 
-{% extends 'base.html' %} {% block content %} {% endblock %}
+{% extends 'base.html' %} {% block content %}
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1 class="jumbotron-heading">What's are your favorite videos?</h1>
+    <p class="lead text-muted">
+        <p>
+            Show everyone your top ten list. 
+        </p>
+        <p>
+            Show everyone your funniest videos. 
+        </p>
+        <p>
+            Show someone a new skill.
+        </p>
+        <p>
+            <a href="{% url 'create_playlist' %}" class="btn btn-primary">Create Your Playlist</a>
+        </p>
+      
+    </p>
+  </div>
+</section>
+<div class="container">
+    <h1 class="text-center">Popular Videos</h1>
+</div>
+
+{% endblock %}

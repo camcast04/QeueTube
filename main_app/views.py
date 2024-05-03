@@ -1,5 +1,6 @@
 # queuetube/main_app/views.py
 
+import urllib.parse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
@@ -7,26 +8,34 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from .models import Playlist, Video
 from .forms import VideoForm, SearchForm
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.forms.utils import ErrorList
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 import requests
 import urllib
 import environ
 env = environ.Env()
 
-YOUTUBE_API_KEY = env('SECRET_KEY')
+YOUTUBE_API_KEY = env('YOUTUBE_API_KEY')
 
 # Basic Views
 def home(request):
-    return render(request, 'home.html')
+    recent_playlists = Playlist.objects.all().order_by('-id')[:3]
+    # popular_playlists = [Playlist.objects.get(pk=1), Playlist.objects.get(pk=2), Playlist.objects.get(pk=3)]
+    return render(request, 'home.html', {'recent_playlists': recent_playlists}) #,'popular_playlists':popular_playlists})
 
 def about(request):
     return render(request, 'about.html')
 
+@login_required
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    playlists = Playlist.objects.filter(user=request.user)
+    return render(request, 'dashboard.html', {'playlists': playlists})
 
 
+#video views
+@login_required
 def add_video(request, pk):
     form = VideoForm()
     search_form = SearchForm()
@@ -49,18 +58,30 @@ def add_video(request, pk):
                 title = json['items'][0]['snippet']['title']                
                 video.title = title
                 video.save()
-                return redirect('playlist_detail', pk)
+                return redirect('detail_playlist', pk)
             else:
                 errors = form._errors.setdefault('url', ErrorList())
                 errors.append('Needs to be a Youtube URL')
 
     return render(request, 'video/add_video.html', {'form': form, 'search_form': search_form, 'playlist':playlist})
 
-# Playlist Views
-class PlaylistsIndex(generic.ListView):
-    model = Playlist
-    template_name = 'playlists/index.html'
-    context_object_name = 'playlists'
+#Add Video
+@login_required
+def video_search(request):
+    search_form = SearchForm(request.GET)
+    if search_form.is_valid():
+        encoded_search_term = urllib.parse.quote(search_form.cleaned_data['search_term'])
+        response = requests.get(f'https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q={encoded_search_term}&key={YOUTUBE_API_KEY}')
+        #grab this 
+        return JsonResponse(response.json())
+    return JsonResponse({
+            'error':'broken -- form not validated'
+        })
+
+#Delete Video  
+class DeleteVideo(generic.DeleteView):
+    model = Video 
+    template_name = 'video/delete_video.html'
 
 class SignUp(generic.CreateView):
     form_class = UserCreationForm
@@ -73,19 +94,24 @@ class SignUp(generic.CreateView):
         user = authenticate(username=username, password=password)
         login(self.request, user)
         return redirect(self.get_success_url())
-      
+
+
+
+# Playlist Views     
 # Oh CRUD
 
 #Create
-class CreatePlaylist(generic.CreateView):
+class CreatePlaylist(LoginRequiredMixin, generic.CreateView):
     model = Playlist
     fields = ['title']
     template_name = 'playlist/create_playlist.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('dashboard')
   
     def form_valid(self, form):
         form.instance.user = self.request.user
-        return super().form_valid(form)
+        super(CreatePlaylist, self).form_valid(form)
+        return redirect('dashboard')
+    
 
 #Read
 class DetailPlaylist(generic.DetailView):
@@ -93,14 +119,16 @@ class DetailPlaylist(generic.DetailView):
     template_name = 'playlist/detail_playlist.html'
 
 #Update
-class UpdatePlaylist(generic.UpdateView):
+class UpdatePlaylist(LoginRequiredMixin, generic.UpdateView):
     model = Playlist
     fields = ['title']
     template_name = 'playlist/update_playlist.html'
     success_url = reverse_lazy('dashboard')
 
 #Delete
-class DeletePlaylist(generic.DeleteView):
+class DeletePlaylist(LoginRequiredMixin, generic.DeleteView):
     model = Playlist
     template_name = 'playlist/delete_playlist.html'
     success_url = reverse_lazy('dashboard')
+    
+

@@ -5,11 +5,22 @@
 <div class="container">
   <h1>Edit a Playlist</h1>
   <form action="" method="POST">
-    {% csrf_token %} {{ form.as_p }}
+    {% csrf_token %} {% load widget_tweaks %}
+    <!--for loop-->
+    {% for field in form %}
+    <div class="form-group {% if field.errors %}alert alert-danger{% endif %}">
+      {{ field.errors }}
+      <!--FLB-->
+      {{ field.label_tag }}
+      <!--RF-->
+      {% render_field field class="form-control"%}
+    </div>
+    {% endfor %}
     <button type="submit" value="Update Playlist" class="btn btn-primary">
       save
     </button>
   </form>
+  <br />
   <a href="{%url 'delete_playlist' playlist.id %}" class="btn btn-danger"
     >Delete</a
   >
