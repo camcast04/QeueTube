@@ -1,1 +1,1 @@
-web: gunicorn queuetube.wsgi
+web: gunicorn queuetube.wsgi:application
