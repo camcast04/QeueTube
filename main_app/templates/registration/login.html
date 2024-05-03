@@ -3,15 +3,26 @@
 {% extends 'base.html' %} {% block content %}
 <div class="container">
   <h2>Login</h2>
-  <form method="post">
-    {% csrf_token %} {% if form.non_field_errors %}
-    <div class="alert alert-danger">{{ form.non_field_errors }}</div>
-    {% endif %} {% load widget_tweaks %} {% for field in form %}
+  <form method="POST">
+    {% csrf_token %}
+    <!--Load widget tweaks-->
+    {% load widget_tweaks %}
+    <!--Errors-->
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger">
+      <!--Errors-->
+      {{ form.non_field_errors }}
+    </div>
+    {% endif %}
+    <!--Forloop-->
+    {% for field in form %}
     <div class="form-group {% if field.errors %}alert alert-danger{% endif %}">
-      {{ field.errors }} {{ field.label_tag }} {% render_field field
-      class="form-control" %} {% if field.help_text %}<small class="text-muted"
-        >{{ field.help_text|safe }}</small
-      >{% endif %}
+      {{ field.errors }} {{ field.label_tag }}
+      <!--Check-->
+      {% render_field field class="form-control" %}
+      <!--If statement-->
+      {% if field.help_text %}
+      <small class="text-muted">{{ field.help_text|safe }}</small>{% endif %}
     </div>
     {% endfor %}
     <button type="submit" class="btn btn-primary">Login</button>

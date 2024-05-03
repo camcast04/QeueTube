@@ -28,6 +28,19 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
+
+class SignUp(generic.CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('home')
+    template_name = 'registration/signup.html'
+  
+    def form_valid(self, form):
+        super().form_valid(form)
+        username, password = form.cleaned_data.get('username'), form.cleaned_data.get('password1')
+        user = authenticate(username=username, password=password)
+        login(self.request, user)
+        return redirect(self.get_success_url())
+
 @login_required
 def dashboard(request):
     playlists = Playlist.objects.filter(user=request.user)
@@ -82,18 +95,9 @@ def video_search(request):
 class DeleteVideo(generic.DeleteView):
     model = Video 
     template_name = 'video/delete_video.html'
+    success_url = reverse_lazy('dashboard')
 
-class SignUp(generic.CreateView):
-    form_class = UserCreationForm
-    success_url = reverse_lazy('home')
-    template_name = 'registration/signup.html'
-  
-    def form_valid(self, form):
-        super().form_valid(form)
-        username, password = form.cleaned_data.get('username'), form.cleaned_data.get('password1')
-        user = authenticate(username=username, password=password)
-        login(self.request, user)
-        return redirect(self.get_success_url())
+
 
 
 
