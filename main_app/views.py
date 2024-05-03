@@ -1,6 +1,8 @@
 # queuetube/main_app/views.py
 
 import urllib.parse
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
@@ -135,4 +137,18 @@ class DeletePlaylist(LoginRequiredMixin, generic.DeleteView):
     template_name = 'playlist/delete_playlist.html'
     success_url = reverse_lazy('dashboard')
     
+
+#View all ... views
+
+@login_required
+def all_playlists(request):
+    playlists = Playlist.objects.all().order_by('-id')
+    return render(request, 'playlist/all_playlists.html', {'playlists': playlists})
+
+
+@login_required
+def user_playlists(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    playlists = Playlist.objects.filter(user=user).order_by('-id')
+    return render(request, 'playlist/user_playlists.html', {'playlists': playlists, 'playlist_user': user})
 

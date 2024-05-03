@@ -18,6 +18,9 @@ urlpatterns = [
   path('playlist/<int:pk>', views.DetailPlaylist.as_view(), name='detail_playlist'),
   path('playlist/<int:pk>/update', views.UpdatePlaylist.as_view(), name='update_playlist'),
   path('playlist/<int:pk>/delete', views.DeletePlaylist.as_view(), name='delete_playlist'),
+  path('playlists/', views.all_playlists, name='all_playlists'),
+  path('user_playlists/<int:user_id>/', views.user_playlists, name='user_playlists'),
+
   
   #Video killed the radio star 
   path('video/<int:pk>/addvideo', views.add_video, name='add_video'),
