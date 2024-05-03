@@ -1,28 +1,58 @@
 <!--queuetube/main_app/templates/home.html-->
 
-{% extends 'base.html' %} {% block content %}
-<section class="jumbotron text-center">
-  <div class="container">
-    <h1 class="jumbotron-heading">What's are your favorite videos?</h1>
-    <p class="lead text-muted">
-        <p>
-            Show everyone your top ten list. 
-        </p>
-        <p>
-            Show everyone your funniest videos. 
-        </p>
-        <p>
-            Show someone a new skill.
-        </p>
-        <p>
-            <a href="{% url 'create_playlist' %}" class="btn btn-primary">Create Your Playlist</a>
-        </p>
-      
-    </p>
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="main-content-container">
+  <div class="custom-container">
+    <div class="custom-text">
+      <h1 class="jumbotron-heading">Share your favorite videos! 🤩</h1>
+      <p class="lead text-muted">
+        ✨ Show everyone your top ten list.<br />
+        <br />
+        ✨ Show everyone your funniest videos.<br />
+        <br />
+        ✨ Show someone a new skill.<br />
+        <br />
+        <a href="{% url 'create_playlist' %}" class="btn custom-btn-black"
+          >Create Your Playlist</a
+        >
+      </p>
+    </div>
+    <div class="custom-image-container">
+      <img
+        src="{% static 'css/3d-glassy-long-flexible-screen-with-playlist-and-search-bar.png' %}"
+        alt="Playlist Visualization"
+        class="custom-image"
+      />
+    </div>
   </div>
-</section>
-<div class="container">
-    <h1 class="text-center">Popular Videos</h1>
 </div>
-
+<div class="container custom-playlist-container">
+  <h1 class="text-center small-title">🔥 Popular Playlists</h1>
+  {% for playlist in popular_playlists %}
+  <div class="playlist-card">
+    <h2>
+      <a href="{% url 'detail_playlist' playlist.id %}">{{ playlist.title }}</a>
+    </h2>
+    <div class="row">
+      {% for video in playlist.video_set.all %}
+      <div class="col-md-4 mt-3">
+        <div class="card video-card mb-4 shadow-sm">
+          <iframe
+            width="100%"
+            height="225"
+            src="https://www.youtube.com/embed/{{ video.youtube_id }}"
+            frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+          <div class="card-body">
+            <p class="card-text">{{ video.title }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}

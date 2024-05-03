@@ -23,9 +23,8 @@ YOUTUBE_API_KEY = env('YOUTUBE_API_KEY')
 
 # Basic Views
 def home(request):
-    recent_playlists = Playlist.objects.all().order_by('-id')[:3]
-    # popular_playlists = [Playlist.objects.get(pk=1), Playlist.objects.get(pk=2), Playlist.objects.get(pk=3)]
-    return render(request, 'home.html', {'recent_playlists': recent_playlists}) #,'popular_playlists':popular_playlists})
+    popular_playlists = Playlist.objects.all().order_by('-id')[:3]
+    return render(request, 'home.html', {'popular_playlists':popular_playlists})
 
 def about(request):
     return render(request, 'about.html')

@@ -1,0 +1,134 @@
+/* queuetube/main_app/static/style.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body {
+  background-color: #f4f4f4;
+  font-size: 17px;
+  color: #343333;
+  font-weight: medium;
+}
+
+.btn-enter {
+  background: #d4d0f0;
+}
+
+.custom-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.playlist-card,
+.video-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.playlist-card {
+  padding: 15px;
+}
+
+.video-card iframe {
+  border-radius: 10px 10px 0 0;
+}
+
+.video-card .card-body {
+  padding: 10px;
+}
+
+.custom-btn-black {
+  background-color: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.custom-btn-black:hover {
+  background-color: #333;
+  border-color: #333;
+}
+
+.small-title {
+  font-size: 1.25rem; /* 20px */
+}
+
+/* Image styling for better control */
+.custom-image {
+  max-width: 100%;
+  width: 80%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Container adjustments for better layout */
+.custom-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  flex-wrap: wrap; /* Allows items to wrap in smaller screens */
+}
+
+.custom-text {
+  flex: 1 1 300px; /* Flex grow, flex shrink, flex basis */
+  margin-right: 20px; /* Adds spacing between text and image */
+}
+
+.custom-image-container {
+  flex: 1 1 300px; /* Flex grow, flex shrink, flex basis */
+  max-width: 40%; /* Maximum width of the image container */
+}
+
+.main-content-container {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: auto;
+  max-width: 80%; /* Limits the width and centers the container */
+}
+
+.custom-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px; /* Adds space between the text and the image */
+}
+
+.custom-text,
+.custom-image-container {
+  flex: 1;
+  min-width: 0; /* Prevents flex items from growing beyond their content */
+}
+
+.custom-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.main-content-container,
+.container.custom-playlist-container {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: auto;
+  max-width: 80%; /* Adjust this to match the width of the section above */
+}
+.video-card {
+  height: 300px; /* Adjust height to fit your design */
+  overflow: hidden; /* Keeps the content within the bounds of the card */
+}
+
+.video-card iframe {
+  height: 100%; /* Makes the iframe fill the card vertically */
+}
+
+.custom-playlist-container h1 {
+  font-size: 40x;
+  text-align: left;
+}
